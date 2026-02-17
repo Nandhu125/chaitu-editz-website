@@ -19,7 +19,7 @@ var config_default = defineConfig({
       {
         name: "works",
         label: "Works",
-        path: "content/works",
+        path: "src/content/works",
         format: "md",
         fields: [
           {
@@ -90,7 +90,7 @@ var config_default = defineConfig({
       {
         name: "testimonials",
         label: "Testimonials",
-        path: "content/testimonials",
+        path: "src/content/testimonials",
         format: "md",
         fields: [
           {
