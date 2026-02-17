@@ -16,11 +16,11 @@ export default defineConfig({
   },
   schema: {
     collections: [
-      {
-        name: 'works',
-        label: 'Works',
-        path: 'content/works',
-        format: 'md',
+       {
+         name: 'works',
+         label: 'Works',
+         path: 'src/content/works',
+         format: 'md',
         fields: [
           {
             type: 'string',
@@ -87,11 +87,11 @@ export default defineConfig({
           },
         ],
       },
-      {
-        name: 'testimonials',
-        label: 'Testimonials',
-        path: 'content/testimonials',
-        format: 'md',
+       {
+         name: 'testimonials',
+         label: 'Testimonials',
+         path: 'src/content/testimonials',
+         format: 'md',
         fields: [
           {
             type: 'string',
