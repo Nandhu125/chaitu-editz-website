@@ -1,0 +1,19 @@
+# Task 11 - Contact Section
+
+## Status: Completed
+
+### Work Done
+1. Extracted Contact section HTML from `public_html/index.html`.
+2. Created `src/components/sections/Contact.astro`.
+3. Implemented WhatsApp redirect logic on form submission.
+   - Redirects to `https://wa.me/916300506960`.
+   - Pre-fills message with Name, Email, Phone, and Message.
+4. Ported the particle animation canvas script to TypeScript within the component.
+   - Refactored code to define `Particle` class before usage.
+   - Added proper type annotations for `width`, `height`, and `particles`.
+5. Preserved all original CSS classes (`contact-section`, `contact-form`, `wrapper`, etc.).
+
+### Verification
+- `npm run build` passed successfully.
+- Component contains correct form fields and WhatsApp integration.
+- TypeScript errors resolved.

@@ -1,0 +1,203 @@
+---
+---
+
+<section id="contact" class="contact-section">
+    <div class="wrapper">
+        <div class="section-label">Contact Us</div>
+        <h2 class="section-title">Let’s <span>Connect</span></h2>
+        <p class="section-desc">
+            Ready to take your content to the next level? Get in touch with us and let’s create something amazing
+            together.
+        </p>
+
+        <div class="contact-grid">
+            <!-- FORM -->
+            <div class="contact-card">
+                <canvas id="contact-canvas"></canvas>
+                <div class="contact-content">
+                    <h3 style="margin-bottom:16px;font-size:14px;text-transform:uppercase;letter-spacing:3px;">Send
+                        us a
+                        message</h3>
+                    <form class="contact-form">
+                        <div class="contact-form-row">
+                            <div class="field">
+                                <label for="name">Name</label>
+                                <input id="name" name="name" type="text" placeholder="Your Name" required />
+                            </div>
+                            <div class="field">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="email" placeholder="you@email.com" required />
+                            </div>
+                        </div>
+                        <div class="field" style="margin-bottom:14px;">
+                            <label for="phone">Phone</label>
+                            <input id="phone" name="phone" type="tel" placeholder="Your Phone Number" />
+                        </div>
+                        <div class="field">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your project..." required></textarea>
+                        </div>
+                        <button type="submit" class="contact-submit">
+                            Send Message ✈
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- INFO + WHATSAPP -->
+            <div>
+                <div class="contact-card">
+                    <h3 style="margin-bottom:12px;font-size:14px;text-transform:uppercase;letter-spacing:3px;">
+                        Quick Contact
+                    </h3>
+                    <div class="contact-info-list">
+                        <div class="contact-info-item">
+                            <span class="contact-info-icon">✉</span>
+                            <div>
+                                <strong>Email Us</strong><br />
+                                <a href="mailto:chaitueditzdigitalmedia@gmail.com"
+                                    class="contact-link">chaitueditzdigitalmedia@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="contact-info-icon">📞</span>
+                            <div>
+                                <strong>Call Us</strong><br />
+                                <a href="tel:+916300506960" class="contact-link">6300506960</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="contact-info-icon">📍</span>
+                            <div>
+                                <strong>Location</strong><br />
+                                Rajahmundry
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="whatsapp-card">
+                    <strong>Prefer WhatsApp?</strong>
+                    <p style="margin-top:4px;">
+                        Get instant replies on WhatsApp. We’re just a message away!
+                    </p>
+                    <a href="https://wa.me/916300506960" target="_blank" class="whatsapp-btn"
+                        style="text-decoration:none;">
+                        💬 Chat on WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Form submission handler - Redirect to WhatsApp
+    const form = document.querySelector('.contact-form');
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(form as HTMLFormElement);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const phone = formData.get('phone');
+            const message = formData.get('message');
+            const whatsappNumber = '916300506960'; 
+
+            let text = `Name: ${name}%0AEmail: ${email}`;
+            if (phone) text += `%0APhone: ${phone}`;
+            text += `%0AMessage: ${message}`;
+            
+            window.open(`https://wa.me/${whatsappNumber}?text=${text}`, '_blank');
+        });
+    }
+
+    // Particle Animation
+    (function () {
+        const canvas = document.getElementById('contact-canvas') as HTMLCanvasElement;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        let width = 0;
+        let height = 0;
+
+        class Particle {
+            x: number;
+            y: number;
+            vx: number;
+            vy: number;
+            size: number;
+            color: string;
+
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+                this.color = `rgba(255, 205, 86, ${Math.random() * 0.3 + 0.1})`; // Accent color
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                if (!ctx) return;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        let particles: Particle[] = [];
+        const PARTICLE_COUNT = 40;
+        const CONNECT_DISTANCE = 100;
+
+        function resize() {
+            if (canvas.parentElement) {
+                width = canvas.width = canvas.parentElement.offsetWidth;
+                height = canvas.height = canvas.parentElement.offsetHeight;
+            }
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Init particles
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+
+                // Connections
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < CONNECT_DISTANCE) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 205, 86, ${0.15 * (1 - dist / CONNECT_DISTANCE)})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    })();
+</script>

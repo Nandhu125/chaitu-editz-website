@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "#home": true,
+    "#about": true,
+    "#services": true,
+    "#portfolio": true,
+    "#reviews": true,
+    "#pricing": true,
+    "#clients": true,
+    "#faq_section": true,
+    "#contact": true,
+    "footer": true
+  },
+  "interactions": {
+    "filter_All": {
+      "clicked": true,
+      "visibleItems": 6
+    },
+    "filter_Thumbnails": {
+      "clicked": true,
+      "visibleItems": 6
+    },
+    "filter_Reels": {
+      "clicked": true,
+      "visibleItems": 3
+    },
+    "filter_Posters": {
+      "clicked": true,
+      "visibleItems": 9
+    },
+    "filter_Logos": {
+      "clicked": true,
+      "visibleItems": 6
+    },
+    "lightbox": {
+      "opens": true
+    },
+    "faq": {
+      "toggles": true
+    },
+    "mobileMenu": {
+      "toggles": true
+    }
+  },
+  "screenshots": [
+    "f3-desktop-1920x1080.png",
+    "f3-tablet-768x1024.png",
+    "f3-mobile-375x667.png"
+  ],
+  "animations": {
+    "typing": true,
+    "particles": true,
+    "scrollReveal": true
+  },
+  "errors": []
+}

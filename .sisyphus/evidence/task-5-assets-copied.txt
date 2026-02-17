@@ -1,0 +1,21 @@
+=== File Counts ===
+Thumbnails:
+6
+Reels:
+3
+Posters:
+9
+Logos:
+6
+Clients:
+17
+
+=== Sample Filenames ===
+Thumbnails:
+a-camping-kastala1.jpg
+dwaraka-ela-munigipoyindi-final.jpg
+family-birthday.jpg
+Clients:
+whatsapp-image-2025-12-19-at-11.07.15-1.jpeg
+whatsapp-image-2025-12-19-at-11.07.15.jpeg
+whatsapp-image-2025-12-19-at-11.07.16-1.jpeg

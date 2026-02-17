@@ -1,0 +1,139 @@
+---
+---
+
+<section id="services">
+    <div class="wrapper">
+        <div class="section-label">Our Services</div>
+        <h2 class="section-title">What we <span>Offer</span></h2>
+        <p class="section-desc">
+            From thumbnails to video editing, we provide everything you need to make your
+            content stand out and grow your audience.
+        </p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🖼</div>
+                <h3>YouTube Thumbnails</h3>
+                <p>Click-worthy thumbnails that boost CTR and bring more viewers to your videos.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎬</div>
+                <h3>Video Editing</h3>
+                <p>Smooth transitions, effects and colour grading that make your content shine.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎞</div>
+                <h3>Reels Editing</h3>
+                <p>Trendy, fast-paced Instagram reels with perfect music sync and captions.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3>Logo Design</h3>
+                <p>Unique, memorable logos that represent your brand identity.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🪧</div>
+                <h3>Posters & Banners</h3>
+                <p>Stunning posters and banners for YouTube, social media & promotions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+  // Scroll reveal animation
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const servicesSection = document.querySelector('#services');
+  if (servicesSection) {
+      const elements = servicesSection.querySelectorAll('.section-title, .section-desc, .service-card');
+      
+      const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  const target = entry.target;
+                  if (target instanceof HTMLElement) {
+                      target.style.opacity = '1';
+                      target.style.transform = 'translateY(0)';
+                  }
+                  revealObserver.unobserve(entry.target);
+              }
+          });
+      }, observerOptions);
+
+      elements.forEach((element, index) => {
+          const el = element;
+          if (el instanceof HTMLElement) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = `opacity 0.6s ease-out ${index * 0.1}s, transform 0.6s ease-out ${index * 0.1}s`;
+            revealObserver.observe(el);
+          }
+      });
+  }
+</script>
+
+<style>
+    /* Services section styling */
+    #services {
+        padding: 2rem 0;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .service-card {
+        background: var(--card-bg, #fff);
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .service-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .service-card h3 {
+        margin: 1rem 0 0.5rem;
+        font-size: 1.25rem;
+        color: var(--text-primary, #000);
+    }
+
+    .service-card p {
+        color: var(--text-secondary, #666);
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+        .services-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            padding: 1.5rem;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+        }
+    }
+</style>

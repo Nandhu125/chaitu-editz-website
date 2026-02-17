@@ -1,0 +1,19 @@
+{
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "networkErrors": [
+    "404 http://localhost:4321/our.png",
+    "net::ERR_ABORTED http://localhost:4321/works/reels/new-short-06.mp4",
+    "net::ERR_ABORTED http://localhost:4321/works/reels/new-short-06.mp4",
+    "404 http://localhost:4321/our.png",
+    "net::ERR_ABORTED http://localhost:4321/works/reels/final-01.mp4",
+    "net::ERR_ABORTED http://localhost:4321/works/reels/new-short-10.mp4",
+    "net::ERR_ABORTED http://localhost:4321/works/reels/new-short-06.mp4",
+    "404 http://localhost:4321/our.png"
+  ],
+  "sectionsVerified": true,
+  "timestamp": "2026-02-17T17:52:51.410Z"
+}

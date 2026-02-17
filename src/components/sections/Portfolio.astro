@@ -1,0 +1,129 @@
+---
+import { getCollection } from 'astro:content';
+
+const worksEntries = await getCollection('works');
+const portfolioItems = worksEntries.map(entry => ({
+  type: entry.data.type,
+  category: entry.data.category,
+  src: entry.data.image,
+  title: entry.data.title,
+}));
+---
+
+<section id="portfolio">
+  <div class="wrapper">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title">Our <span>Work</span></h2>
+    <p class="section-desc">Explore our creative journey through diverse projects.</p>
+    
+    <div class="portfolio-filters">
+      <button class="filter-pill active" data-filter="thumbnails">Thumbnails</button>
+      <button class="filter-pill" data-filter="reels">Reels</button>
+      <button class="filter-pill" data-filter="posters">Posters</button>
+      <button class="filter-pill" data-filter="logos">Logos</button>
+    </div>
+    
+    <div class="portfolio-grid" id="portfolio-grid">
+      {portfolioItems.map((item) => (
+        <div 
+          class="portfolio-item" 
+          data-category={item.category}
+          onclick={`window.openLightbox('${item.src}', '${item.type}')`}
+          style={item.category === 'thumbnails' ? '' : 'display: none;'}
+        >
+          {item.type === 'video' ? (
+             <video src={item.src} muted loop playsinline></video>
+          ) : (
+             <img src={item.src} alt={`${item.category} work`} loading="lazy" />
+          )}
+          
+          <div class="portfolio-overlay">
+            <span class="view-icon">
+              {item.type === 'video' ? '▶' : '👁'}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <a href="#" class="portfolio-cta">View All Projects ↗</a>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filters = document.querySelectorAll('.filter-pill');
+    const items = document.querySelectorAll('.portfolio-item');
+
+    filters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        // Remove active class from all filters
+        filters.forEach(f => f.classList.remove('active'));
+        // Add active class to clicked filter
+        filter.classList.add('active');
+
+        const category = filter.getAttribute('data-filter');
+
+        items.forEach(item => {
+          if (item.getAttribute('data-category') === category) {
+            item.style.display = '';
+            // Trigger a small animation or reflow if needed, but display block/grid is enough
+            item.style.animation = 'fadeIn 0.5s ease forwards';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
+
+<style>
+  /* Scoped styles for overlay elements not in global.css */
+  .portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .portfolio-item:hover .portfolio-overlay {
+    opacity: 1;
+  }
+
+  .view-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .portfolio-item:hover .view-icon {
+    transform: scale(1);
+  }
+
+  .portfolio-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

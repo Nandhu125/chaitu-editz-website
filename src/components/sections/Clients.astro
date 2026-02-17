@@ -1,0 +1,50 @@
+---
+const images = [
+  "whatsapp-image-2025-12-19-at-11.07.15-1.jpeg",
+  "whatsapp-image-2025-12-19-at-11.07.15.jpeg",
+  "whatsapp-image-2025-12-19-at-11.07.16-1.jpeg",
+  "whatsapp-image-2025-12-19-at-11.07.16-2.jpeg",
+  "whatsapp-image-2025-12-19-at-11.07.16.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.44-1.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.44.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.45-1.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.45.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.46.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.49.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.50-1.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.50-2.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.50.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.51-1.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.51.jpeg",
+  "whatsapp-image-2025-12-19-at-11.13.52.jpeg"
+];
+---
+
+<section id="clients">
+  <canvas id="clients-canvas"></canvas>
+  <div class="wrapper">
+    <div class="section-label">Our Happy Clients</div>
+    <h2 class="section-title">Work With Our <span>Clients</span></h2>
+    <p class="section-desc">
+      We are proud to have worked with some amazing creators.
+    </p>
+  </div>
+
+  <div class="clients-marquee">
+    <div class="marquee-track">
+      <!-- First set of images -->
+      {images.map((img) => (
+        <div class="client-slide">
+          <img src={`/clients/${img}`} loading="lazy" alt="Client work example" />
+        </div>
+      ))}
+
+      <!-- Duplicate set for seamless loop -->
+      {images.map((img) => (
+        <div class="client-slide">
+          <img src={`/clients/${img}`} loading="lazy" alt="Client work example" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

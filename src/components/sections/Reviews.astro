@@ -1,0 +1,205 @@
+---
+import { getCollection } from 'astro:content';
+
+const allTestimonials = await getCollection('testimonials');
+// Filter to show only approved reviews
+const reviews = allTestimonials
+  .filter(t => t.data.approved === true)
+  .map(entry => ({
+    id: entry.id,
+    name: entry.data.name,
+    link: entry.data.youtubeLink || '#',
+    rating: entry.data.rating,
+    msg: entry.data.message,
+  }));
+---
+
+<section id="reviews">
+  <canvas id="testimonial-canvas"></canvas>
+  <div class="wrapper">
+    <div class="section-label">Testimonials</div>
+    <h2 class="section-title">Client <span>Feedback</span></h2>
+    
+    <!-- REVIEW FORM -->
+    <div class="review-form-container">
+      <h3 style="text-align:center;margin-bottom:20px;">Write a Review</h3>
+      <form id="reviewForm" data-formspree-id="YOUR_FORM_ID">
+        <div class="rating-input" id="starContainer">
+          <span class="star-box" data-value="1">★</span>
+          <span class="star-box" data-value="2">★</span>
+          <span class="star-box" data-value="3">★</span>
+          <span class="star-box" data-value="4">★</span>
+          <span class="star-box" data-value="5">★</span>
+        </div>
+        <input type="hidden" id="ratingValue" required>
+        
+        <div class="contact-form-row">
+          <div class="field">
+            <label>Name</label>
+            <input type="text" id="reviewerName" placeholder="Your Name" required>
+          </div>
+          <div class="field">
+            <label>YouTube Channel Link</label>
+            <input type="url" id="reviewerLink" placeholder="https://youtube.com/@yourchannel" required>
+          </div>
+        </div>
+        <div class="field">
+          <label>Review</label>
+          <textarea id="reviewerMsg" placeholder="Share your experience..." style="min-height:80px;" required></textarea>
+        </div>
+        <button type="submit" class="contact-submit" style="width:100%;margin-top:20px;">Submit Review</button>
+        
+        <!-- Status messages -->
+        <div id="reviewFormStatus" style="margin-top:15px;padding:12px;border-radius:8px;display:none;"></div>
+      </form>
+    </div>
+    
+    <!-- REVIEWS GRID -->
+    <div class="reviews-grid" id="reviews-grid">
+      {reviews.map((review) => (
+        <div class="review-card">
+          <div class="review-stars" style="color:var(--accent); margin-bottom:12px; font-size:16px;">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <span style={{ color: i < review.rating ? 'var(--accent)' : 'inherit', opacity: i < review.rating ? 1 : 0.3 }}>★</span>
+            ))}
+          </div>
+          <p class="review-text">"{review.msg}"</p>
+          <div class="review-author">
+            <a href={review.link} target="_blank" rel="noopener noreferrer">{review.name}</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Star rating logic
+  const stars = document.querySelectorAll('.star-box');
+  const ratingInput = document.getElementById('ratingValue') as HTMLInputElement;
+  let selectedRating = 0;
+
+  stars.forEach((star) => {
+    // Add type assertion to HTMLElement to access dataset
+    const starElement = star as HTMLElement;
+    
+    starElement.addEventListener('click', () => {
+      selectedRating = parseInt(starElement.dataset.value || '0');
+      if (ratingInput) ratingInput.value = selectedRating.toString();
+      updateStars();
+    });
+    
+    starElement.addEventListener('mouseover', () => {
+      highlightStars(parseInt(starElement.dataset.value || '0'));
+    });
+    
+    starElement.addEventListener('mouseout', () => {
+      updateStars();
+    });
+  });
+
+  function highlightStars(count: number) {
+    stars.forEach((s, i) => {
+      if (i < count) {
+        s.classList.add('active');
+      } else {
+        s.classList.remove('active');
+      }
+    });
+  }
+
+  function updateStars() {
+    highlightStars(selectedRating);
+  }
+
+  // Form submission
+  const reviewForm = document.getElementById('reviewForm') as HTMLFormElement;
+  const statusDiv = document.getElementById('reviewFormStatus') as HTMLDivElement;
+  const submitButton = reviewForm?.querySelector('button[type="submit"]') as HTMLButtonElement;
+  
+  if (reviewForm) {
+    reviewForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Validate rating
+      if (!selectedRating) {
+        showStatus('error', 'Please select a rating');
+        return;
+      }
+      
+      // Get form data
+      const nameInput = document.getElementById('reviewerName') as HTMLInputElement;
+      const linkInput = document.getElementById('reviewerLink') as HTMLInputElement;
+      const msgInput = document.getElementById('reviewerMsg') as HTMLTextAreaElement;
+      
+      const formData = {
+        name: nameInput.value.trim(),
+        youtube_link: linkInput.value.trim(),
+        rating: selectedRating,
+        message: msgInput.value.trim()
+      };
+      
+      // Disable submit button
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
+      }
+      
+      try {
+        // Get Formspree endpoint from data attribute
+        const formspreeId = reviewForm.dataset.formspreeId || 'YOUR_FORM_ID';
+        const formspreeUrl = `https://formspree.io/f/${formspreeId}`;
+        
+        const response = await fetch(formspreeUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        if (response.ok) {
+          showStatus('success', 'Thank you! Your review has been submitted for approval.');
+          reviewForm.reset();
+          selectedRating = 0;
+          updateStars();
+        } else {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Submission failed');
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        showStatus('error', 'Failed to submit review. Please try again later.');
+      } finally {
+        // Re-enable submit button
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Submit Review';
+        }
+      }
+    });
+  }
+  
+  function showStatus(type: 'success' | 'error', message: string) {
+    if (!statusDiv) return;
+    
+    statusDiv.textContent = message;
+    statusDiv.style.display = 'block';
+    
+    if (type === 'success') {
+      statusDiv.style.backgroundColor = 'rgba(34, 197, 94, 0.1)';
+      statusDiv.style.color = '#22c55e';
+      statusDiv.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+    } else {
+      statusDiv.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+      statusDiv.style.color = '#ef4444';
+      statusDiv.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+    }
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      statusDiv.style.display = 'none';
+    }, 5000);
+  }
+</script>

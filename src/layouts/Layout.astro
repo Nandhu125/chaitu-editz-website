@@ -1,0 +1,123 @@
+---
+// Astro Layout Component Frontmatter
+import '../styles/global.css';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = 'Chaitu Editz Digital Media | YouTube Thumbnails & Video Editing',
+  description = 'Professional YouTube thumbnail and video editing services'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+    <Header />
+    <!-- Page content slot -->
+    <slot />
+
+    <!-- Particle canvas for decorative elements -->
+    <canvas id="hero-particle-canvas"></canvas>
+    <canvas id="testimonial-canvas"></canvas>
+    <canvas id="contact-canvas"></canvas>
+    <canvas id="clients-canvas"></canvas>
+    <canvas id="footer-canvas"></canvas>
+
+    <!-- Particle animation script for decorative background elements -->
+    <script>
+        // Hero particle system
+        (() => {
+            const canvas = document.getElementById('hero-particle-canvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = canvas.offsetWidth;
+            let height = canvas.height = canvas.offsetHeight;
+
+            const PARTICLE_COUNT = 80;
+            const CONNECT_DISTANCE = 150;
+            const particles = [];
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 1.5 + 0.5;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    if (this.x < 0) this.x = width;
+                    if (this.x > width) this.x = 0;
+                    if (this.y < 0) this.y = height;
+                    if (this.y > height) this.y = 0;
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Init
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+
+                particles.forEach((p, index) => {
+                    p.update();
+                    p.draw();
+
+                    // Connect
+                    for (let j = index + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dx = p.x - p2.x;
+                        const dy = p.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < CONNECT_DISTANCE) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 * (1 - dist / CONNECT_DISTANCE)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.stroke();
+                        }
+                    }
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                width = canvas.width = canvas.offsetWidth;
+                height = canvas.height = canvas.offsetHeight;
+            });
+        })();
+    </script>
+    
+    <Footer />
+</body>
+</html>

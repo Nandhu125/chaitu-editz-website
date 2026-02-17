@@ -1,0 +1,21 @@
+# Task 10: FAQ Section with Accordion
+
+## Status: Completed
+
+### Actions Taken:
+1.  Extracted FAQ HTML and CSS from `public_html/index.html`.
+2.  Created `src/components/sections/FAQ.astro`.
+3.  Implemented vanilla JS accordion logic within the Astro component.
+4.  Verified build success.
+
+### Verification:
+-   `src/components/sections/FAQ.astro` exists.
+-   Contains all 10 FAQ items.
+-   Accordion logic is implemented using vanilla JS event listeners.
+-   `npm run build` completed successfully.
+
+### Build Output:
+> chaitu-editz-astro@0.0.1 build
+> astro build
+...
+17:14:55 [build] Complete!

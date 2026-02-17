@@ -1,0 +1,19 @@
+fragment WorksParts on Works {
+  __typename
+  title
+  description
+  image
+  category
+  type
+  order
+}
+
+fragment TestimonialsParts on Testimonials {
+  __typename
+  name
+  youtubeLink
+  rating
+  message
+  approved
+  date
+}

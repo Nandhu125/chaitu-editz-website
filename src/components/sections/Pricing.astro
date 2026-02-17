@@ -1,0 +1,86 @@
+---
+---
+
+<section id="pricing">
+    <div class="wrapper">
+        <div class="section-label">Simple Pricing</div>
+        <h2 class="section-title">Choose your <span>Plan</span></h2>
+        <p class="section-desc">
+            Choose the plan that fits your needs. No hidden fees, no surprises. Just great designs at honest prices.
+        </p>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-name">Basic</div>
+                <div class="pricing-sub">Perfect for beginners and small creators.</div>
+                <ul class="pricing-features">
+                    <li>1 YouTube Thumbnail</li>
+                    <li>2 Revisions</li>
+                    <li>HD Quality (1280×720)</li>
+                    <li>24–48 Hour Delivery</li>
+                    <li>Priority 24/7 Support</li>
+                </ul>
+                <button class="pricing-btn">Get Started</button>
+            </div>
+
+            <div class="pricing-card popular">
+                <div class="badge-popular">Most Popular</div>
+                <div class="pricing-name">Standard</div>
+                <div class="pricing-sub">Best for growing channels.</div>
+                <ul class="pricing-features">
+                    <li>5 YouTube Thumbnails</li>
+                    <li>Unlimited Revisions</li>
+                    <li>HD Quality (1280×720)</li>
+                    <li>Priority Delivery</li>
+                    <li>WhatsApp Support</li>
+                    <li>Priority 24/7 Support</li>
+                </ul>
+                <button class="pricing-btn">Get Started</button>
+            </div>
+
+            <div class="pricing-card">
+                <div class="pricing-name">Premium</div>
+                <div class="pricing-sub">For serious content creators.</div>
+                <ul class="pricing-features">
+                    <li>15 Videos</li>
+                    <li>15 Reels</li>
+                    <li>15 Thumbnails</li>
+                    <li>Free Logo</li>
+                    <li>Free Channel Art</li>
+                    <li>Unlimited Revisions</li>
+                    <li>Premium Quality</li>
+                    <li>Fast Delivery</li>
+                    <li>Priority 24/7 Support</li>
+                </ul>
+                <button class="pricing-btn">Get Started</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Scroll reveal animation using IntersectionObserver
+document.addEventListener('DOMContentLoaded', () => {
+    const pricingCards = document.querySelectorAll('.pricing-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    pricingCards.forEach((card) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+    });
+});
+</script>

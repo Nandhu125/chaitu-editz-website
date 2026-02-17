@@ -1,0 +1,260 @@
+---
+---
+
+<!-- HERO -->
+<main id="home" class="hero">
+    <canvas id="hero-particle-canvas"></canvas>
+    <div class="wrapper hero-inner">
+        <div class="hero-pill">
+            <span class="hero-pill-dot"></span>
+            Trusted by 500+ creators across India
+        </div>
+        <h1 class="hero-title">
+            Boost your <span class="highlight">YouTube</span><br />
+            growth with pro<br />
+            <span class="highlight">thumbnails</span>
+        </h1>
+        <p class="hero-sub">
+            We help creators turn views into subscribers with high-quality thumbnail designs
+            and professional video editing services.
+        </p>
+        <div class="hero-actions">
+            <button class="btn-primary"
+                onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                Get Started →
+            </button>
+            <button class="btn-ghost"
+                onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})">
+                View Portfolio
+            </button>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <strong class="stat-number" data-target="15" data-suffix="+">0</strong>
+                Clients
+            </div>
+            <div class="hero-stat">
+                <strong class="stat-number" data-target="250" data-suffix="+">0</strong>
+                Works
+            </div>
+            <div class="hero-stat">
+                <strong class="stat-number" data-target="4.9" data-suffix="">0</strong>
+                Rating
+            </div>
+             <div class="hero-stat">
+                <strong class="stat-number" data-target="100" data-suffix="%">0</strong>
+                Satisfaction
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll">
+        <span></span>
+        Scroll
+    </div>
+</main>
+
+<script is:inline>
+    // Stats Counter
+    const statsSection = document.querySelector('.hero-stats');
+    const stats = document.querySelectorAll('.stat-number');
+    let started = false;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !started) {
+                stats.forEach(stat => {
+                    const target = +stat.getAttribute('data-target');
+                    const suffix = stat.getAttribute('data-suffix') || '';
+                    const duration = 2000; // 2 seconds
+                    const increment = target / (duration / 16); // 60fps
+
+                    let current = 0;
+                    const updateCount = () => {
+                        current += increment;
+                        if (current < target) {
+                            stat.innerText = Math.ceil(current) + suffix;
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            stat.innerText = target + suffix;
+                        }
+                    };
+                    updateCount();
+                });
+                started = true;
+            }
+        });
+    });
+
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+
+    // Typing Animation
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) {
+        // Retrieve the full HTML structure (including spans and brs)
+        const fullHTML = heroTitle.innerHTML;
+        
+        heroTitle.innerHTML = ''; // Clear content
+
+        let currentIndex = 0;
+        let currentHTML = '';
+        let parsingTag = false;
+        let isDeleting = false;
+
+        function typeLoop() {
+            const speed = isDeleting ? 30 : 80; // Deleting is faster
+
+            if (!isDeleting) {
+                // TYPING
+                if (currentIndex < fullHTML.length) {
+                    const char = fullHTML[currentIndex];
+
+                    if (char === '<') parsingTag = true;
+
+                    currentHTML += char;
+                    currentIndex++;
+
+                    if (char === '>') parsingTag = false;
+
+                    if (parsingTag) {
+                        // If inside a tag, skip the delay and continue immediately to next char
+                        typeLoop();
+                        return;
+                    }
+
+                    heroTitle.innerHTML = currentHTML + '<span class="cursor"></span>';
+                    setTimeout(typeLoop, speed);
+                } else {
+                    // Finished typing, pause before deleting
+                    isDeleting = true;
+                    setTimeout(typeLoop, 2000);
+                }
+            } else {
+                // DELETING
+                if (currentIndex > 0) {
+                    // Check if we are about to delete a tag closer `>`
+                    if (fullHTML[currentIndex - 1] === '>') {
+                        // Determine the start of this tag
+                        const closeTagIndex = currentIndex - 1;
+                        let openTagIndex = closeTagIndex;
+                        // Scan backwards for '<'
+                        while (openTagIndex >= 0 && fullHTML[openTagIndex] !== '<') {
+                            openTagIndex--;
+                        }
+                        // Remove the whole tag at once
+                        currentIndex = openTagIndex;
+                        currentHTML = fullHTML.substring(0, currentIndex);
+                    } else {
+                        // Normal char deletion
+                        currentIndex--;
+                        currentHTML = fullHTML.substring(0, currentIndex);
+                    }
+
+                    heroTitle.innerHTML = currentHTML + '<span class="cursor"></span>';
+                    setTimeout(typeLoop, speed);
+                } else {
+                    // Finished deleting, restart
+                    isDeleting = false;
+                    setTimeout(typeLoop, 500);
+                }
+            }
+        }
+
+        typeLoop();
+    }
+
+    // Hero Particle Canvas
+    (function () {
+        const canvas = document.getElementById('hero-particle-canvas');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        // Mouse/Touch state
+        const mouse = { x: null, y: null };
+
+        function resize() {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Track inputs
+        window.addEventListener('mousemove', e => {
+            const rect = canvas.getBoundingClientRect();
+            if (e.clientY >= rect.top && e.clientY <= rect.bottom) {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY - rect.top; // Relative to canvas
+                spawnParticles(3);
+            }
+        });
+
+        // Touch support
+        window.addEventListener('touchmove', e => {
+            const rect = canvas.getBoundingClientRect();
+            if (e.touches[0].clientY >= rect.top && e.touches[0].clientY <= rect.bottom) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY - rect.top;
+                spawnParticles(2);
+            }
+        }, { passive: true });
+
+
+        class Particle {
+            x; y; size; speedX; speedY; color; life;
+            constructor() {
+                this.x = mouse.x;
+                this.y = mouse.y;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                // White/Gold soft glow
+                this.color = `rgba(255, 220, 150, ${Math.random() * 0.5 + 0.2})`;
+                this.life = 100;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life -= 1.5; // Fade out speed
+                if (this.size > 0.1) this.size -= 0.05;
+            }
+            draw() {
+                ctx.fillStyle = this.color.replace(/[\d.]+\)$/, `${this.life / 100})`);
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = "rgba(255,255,255,0.5)";
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        function spawnParticles(count) {
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+            // Limit particles
+            if (particles.length > 200) particles.splice(0, particles.length - 200);
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                if (particles[i].life <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    })();
+</script>

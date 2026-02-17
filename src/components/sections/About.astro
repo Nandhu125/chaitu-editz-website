@@ -1,0 +1,149 @@
+---
+---
+
+<section id="about" class="about-section">
+  <div class="wrapper about-grid">
+    <div>
+      <div class="section-label">About Us</div>
+      <h2 class="section-title">We are <span>Chaitu Editz</span></h2>
+      <p class="section-desc">
+        Chaitu Editz Digital Media is a professional creative studio specializing in
+        YouTube thumbnail designing and video editing. We help content creators grow
+        faster with eye-catching visuals and high-quality edits. Trusted by many creators
+        across India.
+      </p>
+      <p class="section-desc">
+        Our mission is simple: to help you stand out in the crowded digital space.
+        Whether you're a budding YouTuber or an established influencer, we've got the
+        creative firepower to take your content to the next level.
+      </p>
+
+      <div class="about-points">
+        <div class="pill-card">
+          <div class="pill-card-label">
+            <span class="pill-icon">⚡</span>
+            Fast Delivery
+          </div>
+          <small>Quick turnaround on all projects.</small>
+        </div>
+        <div class="pill-card">
+          <div class="pill-card-label">
+            <span class="pill-icon">❤️</span>
+            Passion Driven
+          </div>
+          <small>We love what we create.</small>
+        </div>
+        <div class="pill-card">
+          <div class="pill-card-label">
+            <span class="pill-icon">🕒</span>
+            24/7 Support
+          </div>
+          <small>Always here to help you.</small>
+        </div>
+        <div class="pill-card">
+          <div class="pill-card-label">
+            <span class="pill-icon">⭐</span>
+            Quality First
+          </div>
+          <small>Premium quality guaranteed.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-profile-card">
+      <div class="profile-img-container">
+        <img src="/our.png" alt="Team Profile" class="profile-img" loading="lazy">
+      </div>
+      <div class="profile-info">
+        <div class="profile-role">Founder – Chaitanya</div>
+        <div class="profile-role">Managing Director – Krishna</div>
+        
+        <div class="social-links">
+            <a href="https://www.instagram.com/chaitueditzdigitalmedia?igsh=MTV1ZndwYjByem84MQ==" target="_blank" class="social-icon" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                </svg>
+            </a>
+            <a href="https://www.behance.net/chaitueditz" target="_blank" class="social-icon" aria-label="Behance" style="font-weight:bold;font-size:16px; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px;">
+                Be
+            </a>
+             <!-- Placeholder for YouTube if needed, but not in original -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scroll reveal animation
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  const aboutSection = document.querySelector('#about');
+  if (aboutSection) {
+      // Add a class to trigger animations if needed, or observe specific elements
+      // The original CSS might rely on specific classes or just viewport visibility
+      // Since the prompt asks for "Scroll reveal animation", we'll assume we need to add a class
+      // However, original CSS didn't seem to have explicit 'reveal' classes in the snippet.
+      // But typically we add a 'visible' class.
+      
+      const elements = aboutSection.querySelectorAll('.section-title, .section-desc, .pill-card, .about-profile-card');
+      
+      const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  const target = entry.target;
+                  if (target instanceof HTMLElement) {
+                      target.style.opacity = '1';
+                      target.style.transform = 'translateY(0)';
+                  }
+                  revealObserver.unobserve(entry.target);
+              }
+          });
+      }, observerOptions);
+
+      elements.forEach((element, index) => {
+          const el = element;
+          if (el instanceof HTMLElement) {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = `opacity 0.6s ease-out ${index * 0.1}s, transform 0.6s ease-out ${index * 0.1}s`;
+            revealObserver.observe(el);
+          }
+      });
+  }
+</script>
+
+<style>
+    /* Add some spacing for social links if not present in global CSS */
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+        justify-content: center; /* Center them as profile roles are centered */
+    }
+    
+    .social-icon {
+        color: inherit;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+    }
+    
+    .social-icon:hover {
+        opacity: 1;
+    }
+
+    /* Ensure styles from global.css apply, but we can add component-specific overrides if needed */
+</style>

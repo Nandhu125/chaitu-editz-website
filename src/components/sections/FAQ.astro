@@ -1,0 +1,204 @@
+---
+---
+
+<section id="faq_section" class="faq-section">
+    <div class="faq-header">
+        <div class="section-label">Common Questions</div>
+        <h2>Frequently <span>Asked</span></h2>
+        <p>Everything you need to know about our services.</p>
+    </div>
+
+    <div class="faq-container">
+        <!-- 1 -->
+        <div class="faq-item">
+            <div class="faq-question">What services do you offer?</div>
+            <div class="faq-answer">
+                <p>We provide YouTube thumbnail designing, video editing, reels editing, logo design, posters &
+                    banners, and complete branding support for creators.</p>
+            </div>
+        </div>
+        <!-- 2 -->
+        <div class="faq-item">
+            <div class="faq-question">How fast will I receive my work?</div>
+            <div class="faq-answer">
+                <p>Delivery time depends on the project type, but we usually deliver within 6–7 hours. Fast delivery
+                    options are available.</p>
+            </div>
+        </div>
+        <!-- 3 -->
+        <div class="faq-item">
+            <div class="faq-question">Do you provide revisions?</div>
+            <div class="faq-answer">
+                <p>Yes, we offer revisions to ensure you are fully satisfied with the final output.</p>
+            </div>
+        </div>
+        <!-- 4 -->
+        <div class="faq-item">
+            <div class="faq-question">Will the quality be professional?</div>
+            <div class="faq-answer">
+                <p>Absolutely. We focus on premium quality visuals designed to increase clicks, engagement, and
+                    brand value.</p>
+            </div>
+        </div>
+        <!-- 5 -->
+        <div class="faq-item">
+            <div class="faq-question">Do you provide source files?</div>
+            <div class="faq-answer">
+                <p>Source files are not included by default. They can be shared only if specifically discussed and
+                    agreed upon.</p>
+            </div>
+        </div>
+        <!-- 6 -->
+        <div class="faq-item">
+            <div class="faq-question">Can I request custom designs or edits?</div>
+            <div class="faq-answer">
+                <p>Yes, custom requirements are always welcome. Just share your ideas, and we’ll bring them to life.
+                </p>
+            </div>
+        </div>
+        <!-- 7 -->
+        <div class="faq-item">
+            <div class="faq-question">How can I contact you?</div>
+            <div class="faq-answer">
+                <p>You can reach us through the contact form, email, or social media. We respond quickly.</p>
+            </div>
+        </div>
+        <!-- 8 -->
+        <div class="faq-item">
+            <div class="faq-question">What payment methods do you accept?</div>
+            <div class="faq-answer">
+                <p>We accept online payments via UPI, bank transfer, and other standard payment methods.</p>
+            </div>
+        </div>
+        <!-- 9 -->
+        <div class="faq-item">
+            <div class="faq-question">Do you work with international clients?</div>
+            <div class="faq-answer">
+                <p>Yes, we work with creators and businesses from all over the world.</p>
+            </div>
+        </div>
+        <!-- 10 -->
+        <div class="faq-item">
+            <div class="faq-question">Do you provide support after delivery?</div>
+            <div class="faq-answer">
+                <p>Yes, we offer ongoing support and assistance even after the project is delivered.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const questions = document.querySelectorAll('.faq-question');
+        
+        questions.forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                
+                // Close all other answers
+                document.querySelectorAll('.faq-item').forEach(other => {
+                    if (other !== item) {
+                        other.classList.remove('active');
+                    }
+                });
+
+                // Toggle current answer
+                item.classList.toggle('active');
+            });
+        });
+    });
+</script>
+
+<style>
+    .faq-section {
+        padding: 100px 20px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .faq-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .faq-header h2 {
+        font-size: 3rem;
+        color: var(--text);
+        margin-bottom: 10px;
+    }
+
+    .faq-header h2 span {
+        color: var(--accent);
+    }
+
+    .faq-header p {
+        color: var(--muted);
+    }
+
+    .faq-item {
+        background: rgba(10, 15, 27, 0.6);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        margin-bottom: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+        border-color: rgba(255, 205, 86, 0.3);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .faq-question {
+        padding: 20px 25px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: var(--text);
+        transition: color 0.3s ease;
+    }
+
+    .faq-question::after {
+        content: '+';
+        font-size: 1.5rem;
+        color: var(--accent);
+        transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-question {
+        color: var(--accent);
+    }
+
+    .faq-item.active .faq-question::after {
+        transform: rotate(45deg);
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 200px;
+        padding: 20px 25px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .faq-answer p {
+        color: var(--muted);
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    @media (max-width: 960px) {
+        .faq-section {
+            padding-top: 60px !important;
+            padding-bottom: 60px !important;
+        }
+    }
+</style>
