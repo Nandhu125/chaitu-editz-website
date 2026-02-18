@@ -1,1 +1,217 @@
-{"version":{"fullVersion":"2.1.1","major":"2","minor":"1","patch":"1"},"meta":{"flags":["experimentalData"]},"collections":[{"name":"works","label":"Works","path":"src/content/works","format":"md","fields":[{"type":"string","name":"title","label":"Title","isTitle":true,"required":true,"namespace":["works","title"],"searchable":true,"uid":false},{"type":"string","name":"description","label":"Description","ui":{"component":"textarea"},"namespace":["works","description"],"searchable":true,"uid":false},{"type":"image","name":"image","label":"Image/Video","namespace":["works","image"],"searchable":false,"uid":false},{"type":"string","name":"category","label":"Category","options":[{"label":"Thumbnails","value":"thumbnails"},{"label":"Reels","value":"reels"},{"label":"Posters","value":"posters"},{"label":"Logos","value":"logos"}],"namespace":["works","category"],"searchable":true,"uid":false},{"type":"string","name":"type","label":"Type","options":[{"label":"Image","value":"image"},{"label":"Video","value":"video"}],"namespace":["works","type"],"searchable":true,"uid":false},{"type":"number","name":"order","label":"Display Order","namespace":["works","order"],"searchable":true,"uid":false}],"namespace":["works"]},{"name":"testimonials","label":"Testimonials","path":"src/content/testimonials","format":"md","fields":[{"type":"string","name":"name","label":"Name","isTitle":true,"required":true,"namespace":["testimonials","name"],"searchable":true,"uid":false},{"type":"string","name":"youtubeLink","label":"YouTube Channel","namespace":["testimonials","youtubeLink"],"searchable":true,"uid":false},{"type":"number","name":"rating","label":"Rating (1-5)","namespace":["testimonials","rating"],"searchable":true,"uid":false},{"type":"string","name":"message","label":"Review","required":true,"ui":{"component":"textarea"},"namespace":["testimonials","message"],"searchable":true,"uid":false},{"type":"boolean","name":"approved","label":"Approved","description":"Only approved reviews appear on site","namespace":["testimonials","approved"],"searchable":true,"uid":false},{"type":"datetime","name":"date","label":"Date","namespace":["testimonials","date"],"searchable":true,"uid":false}],"namespace":["testimonials"]}],"config":{"media":{"tina":{"publicFolder":"public","mediaRoot":"uploads"}}}}
+{
+    "version": {
+        "fullVersion": "2.1.1",
+        "major": "2",
+        "minor": "1",
+        "patch": "1"
+    },
+    "meta": {
+        "flags": [
+            "experimentalData"
+        ]
+    },
+    "collections": [
+        {
+            "name": "works",
+            "label": "Works",
+            "path": "src/content/works",
+            "format": "md",
+            "fields": [
+                {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Title",
+                    "isTitle": true,
+                    "required": true,
+                    "namespace": [
+                        "works",
+                        "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                },
+                {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Description",
+                    "ui": {
+                        "component": "textarea"
+                    },
+                    "namespace": [
+                        "works",
+                        "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                },
+                {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Image/Video",
+                    "namespace": [
+                        "works",
+                        "image"
+                    ],
+                    "searchable": false,
+                    "uid": false
+                },
+                {
+                    "type": "string",
+                    "name": "category",
+                    "label": "Category",
+                    "options": [
+                        {
+                            "label": "Thumbnails",
+                            "value": "thumbnails"
+                        },
+                        {
+                            "label": "Reels",
+                            "value": "reels"
+                        },
+                        {
+                            "label": "Posters",
+                            "value": "posters"
+                        },
+                        {
+                            "label": "Logos",
+                            "value": "logos"
+                        }
+                    ],
+                    "namespace": [
+                        "works",
+                        "category"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                },
+                {
+                    "type": "string",
+                    "name": "type",
+                    "label": "Type",
+                    "options": [
+                        {
+                            "label": "Image",
+                            "value": "image"
+                        },
+                        {
+                            "label": "Video",
+                            "value": "video"
+                        }
+                    ],
+                    "namespace": [
+                        "works",
+                        "type"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                },
+                {
+                    "type": "number",
+                    "name": "order",
+                    "label": "Display Order",
+                    "namespace": [
+                        "works",
+                        "order"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                }
+            ],
+            "namespace": [
+                "works"
+            ]
+        },
+        {
+            "name": "testimonials",
+            "label": "Testimonials",
+            "path": "src/content/testimonials",
+            "format": "md",
+            "fields": [
+                {
+                    "type": "string",
+                    "name": "name",
+                    "label": "Name",
+                    "isTitle": true,
+                    "required": true,
+                    "namespace": [
+                        "testimonials",
+                        "name"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                },
+                {
+                    "type": "string",
+                    "name": "youtubeLink",
+                    "label": "YouTube Channel",
+                    "namespace": [
+                        "testimonials",
+                        "youtubeLink"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                },
+                {
+                    "type": "number",
+                    "name": "rating",
+                    "label": "Rating (1-5)",
+                    "namespace": [
+                        "testimonials",
+                        "rating"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                },
+                {
+                    "type": "string",
+                    "name": "message",
+                    "label": "Review",
+                    "required": true,
+                    "ui": {
+                        "component": "textarea"
+                    },
+                    "namespace": [
+                        "testimonials",
+                        "message"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                },
+                {
+                    "type": "boolean",
+                    "name": "approved",
+                    "label": "Approved",
+                    "description": "Only approved reviews appear on site",
+                    "namespace": [
+                        "testimonials",
+                        "approved"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                },
+                {
+                    "type": "datetime",
+                    "name": "date",
+                    "label": "Date",
+                    "namespace": [
+                        "testimonials",
+                        "date"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                }
+            ],
+            "namespace": [
+                "testimonials"
+            ]
+        }
+    ],
+    "config": {
+        "media": {
+            "tina": {
+                "publicFolder": "public",
+                "mediaRoot": "uploads"
+            }
+        }
+    }
+}
