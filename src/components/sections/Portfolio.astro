@@ -1,11 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
+import { withBase } from '../../utils/paths';
 
 const worksEntries = await getCollection('works');
 const portfolioItems = worksEntries.map(entry => ({
   type: entry.data.type,
   category: entry.data.category,
-  src: entry.data.image,
+  src: withBase(entry.data.image),
   title: entry.data.title,
 }));
 ---

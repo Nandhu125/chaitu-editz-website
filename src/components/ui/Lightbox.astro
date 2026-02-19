@@ -15,42 +15,54 @@
 </div>
 
 <script is:inline>
-// Open lightbox
+const BASE_URL = import.meta.env.BASE_URL || '/';
+
+function normalizeImagePath(src) {
+  if (!src || src.startsWith('http')) return src;
+  
+  if (!src.startsWith('/')) {
+    return BASE_URL.endsWith('/') 
+      ? BASE_URL + src 
+      : BASE_URL + '/' + src;
+  }
+  
+  if (BASE_URL === '/') return src;
+  return BASE_URL.replace(/\/$/, '') + src;
+}
+
 function openLightbox(src, type) {
   const overlay = document.getElementById('lightbox');
   const img = overlay.querySelector('.lightbox-image');
   const video = overlay.querySelector('.lightbox-video');
+  const normalizedSrc = normalizeImagePath(src);
   
   if (type === 'image') {
-    img.src = src;
+    img.src = normalizedSrc;
     img.style.display = 'block';
     video.style.display = 'none';
-    // Clear video source when switching to image
     video.querySelector('source').src = '';
     video.load(); 
   } else if (type === 'video') {
-    video.querySelector('source').src = src;
+    video.querySelector('source').src = normalizedSrc;
     video.load();
     video.style.display = 'block';
     img.style.display = 'none';
-    img.src = ''; // Clear image source
+    img.src = '';
   }
   
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
-// Close lightbox
 function closeLightbox() {
   const overlay = document.getElementById('lightbox');
   const video = overlay.querySelector('.lightbox-video');
   video.pause();
-  video.querySelector('source').src = ''; // Clear source to stop buffering
+  video.querySelector('source').src = '';
   overlay.classList.remove('active');
   document.body.style.overflow = '';
 }
 
-// Event listeners
 document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.querySelector('.lightbox-close');
     if (closeBtn) {
@@ -69,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Make openLightbox globally available
 window.openLightbox = openLightbox;
 </script>
 

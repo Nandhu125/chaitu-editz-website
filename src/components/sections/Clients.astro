@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../../utils/paths';
+
 const images = [
   "whatsapp-image-2025-12-19-at-11.07.15-1.jpeg",
   "whatsapp-image-2025-12-19-at-11.07.15.jpeg",
@@ -35,14 +37,14 @@ const images = [
       <!-- First set of images -->
       {images.map((img) => (
         <div class="client-slide">
-          <img src={`/clients/${img}`} loading="lazy" alt="Client work example" />
+          <img src={withBase(`/clients/${img}`)} loading="lazy" alt="Client work example" />
         </div>
       ))}
 
       <!-- Duplicate set for seamless loop -->
       {images.map((img) => (
         <div class="client-slide">
-          <img src={`/clients/${img}`} loading="lazy" alt="Client work example" />
+          <img src={withBase(`/clients/${img}`)} loading="lazy" alt="Client work example" />
         </div>
       ))}
     </div>
