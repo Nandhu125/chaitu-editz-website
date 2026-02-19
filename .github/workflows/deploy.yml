@@ -1,0 +1,57 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Astro site
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ./public_html/new/
+          exclude: |
+            **/.git*
+            **/node_modules/**
+            **/uploads/**
+            **/videos/**
+            **/.DS_Store
+          delete: true
+          dangerous-clean-slate: false
+
+      - name: Deployment notification
+        if: always()
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            echo "✅ Deployment to Hostinger successful!"
+            echo "🌐 Site: https://chaitueditzdigitalmedia.com/new"
+          else
+            echo "❌ Deployment failed. Check logs above."
+          fi
